@@ -27,3 +27,13 @@ def quality_score(qual_read: str) -> float:
     len_read = len(qual_read)
     mean_qual_score = sum_score / len_read
     return mean_qual_score
+
+
+def check_gc(seq: str, gc_bounds: tuple[float, float] | float = (0, 100)) -> bool:
+    if type(gc_bounds) == tuple:
+        low = gc_bounds[0]
+        high = gc_bounds[1]
+    else:
+        low = 0
+        high = gc_bounds
+    return low <= gc_content(seq) <= high
