@@ -37,3 +37,17 @@ def check_gc(seq: str, gc_bounds: tuple[float, float] | float = (0, 100)) -> boo
         low = 0
         high = gc_bounds
     return low <= gc_content(seq) <= high
+
+
+def check_length(seq: str, length_bounds: tuple[int, int] | int = (0, 2**32)) -> bool:
+    if type(length_bounds) == tuple:
+        low = length_bounds[0]
+        high = length_bounds[1]
+    else:
+        low = 0
+        high = length_bounds
+    return low <= len(seq) <= high
+
+
+def check_quality(qual_read: str, quality_threshold: float = 0) -> bool:
+    return quality_score(qual_read) >= quality_threshold
