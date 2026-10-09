@@ -1,4 +1,7 @@
-def read_fastq(input_fastq: str) -> list[tuple[str, str, str]]:
+import os
+
+
+def read_fastq(input_fastq: str) -> list[tuple[str, str, str, str]]:
     with open(input_fastq) as fastq_file:
         reads = []
         for line in fastq_file:
@@ -7,7 +10,7 @@ def read_fastq(input_fastq: str) -> list[tuple[str, str, str]]:
                 seq = fastq_file.readline().strip()
                 plus_info = fastq_file.readline().strip()
                 qual_read = fastq_file.readline().strip()
-                reads.append((read_id, seq, qual_read))
+                reads.append((read_id, seq, plus_info, qual_read))
         return reads
 
 
@@ -51,3 +54,17 @@ def check_length(seq: str, length_bounds: tuple[int, int] | int = (0, 2**32)) ->
 
 def check_quality(qual_read: str, quality_threshold: float = 0) -> bool:
     return quality_score(qual_read) >= quality_threshold
+
+
+def write_fastq(
+    output_fastq: str, filtered_reads: list[tuple[str, str, str, str]]
+) -> None:
+    data_dir = "filtered"
+    if not os.path.isdir(data_dir):
+        os.mkdir(data_dir)
+    with open(os.path.join(data_dir, output_fastq), mode="w") as fastq_file:
+        for read_id, seq, plus_info, qual_read in filtered_reads:
+            fastq_file.write(read_id + "\n")
+            fastq_file.write(seq + "\n")
+            fastq_file.write(plus_info + "\n")
+            fastq_file.write(qual_read + "\n")
