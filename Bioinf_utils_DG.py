@@ -42,3 +42,13 @@ def convert_multiline_fasta_to_oneline(
         output_fasta = "oneline_" + input_fasta
     reads = convert_fasta(input_fasta)
     make_output_file(output_fasta, reads)
+
+
+from helpers.bio_files import separate_blast_table, make_sorted_file
+
+
+def parse_blast_output(input_file: str, output_file: str | None = None) -> None:
+    if output_file is None:
+        output_file = "sorted_proteins_" + input_file
+    first_proteins_blast = separate_blast_table(input_file)
+    make_sorted_file(output_file, first_proteins_blast)
