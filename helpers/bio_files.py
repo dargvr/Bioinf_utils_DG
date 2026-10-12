@@ -21,3 +21,21 @@ def make_output_file(output_fasta: str, convert_reads: list[tuple[str, str]]) ->
         for info_line, sequence_total in convert_reads:
             fasta_file.write(info_line + "\n")
             fasta_file.write(sequence_total + "\n")
+
+
+def separate_blast_table(input_file: str) -> list[str]:
+    first_ptoteins = []
+    with open(input_file) as blast_file:
+        for line in blast_file:
+            if line.startswith("Description"):
+                first_ptotein = blast_file.readline().strip()
+                first_ptotein = first_ptotein.split("  ")[0]
+                first_ptoteins.append(first_ptotein)
+        return first_ptoteins
+
+
+def make_sorted_file(output_file: str, first_ptoteins: list[str]) -> None:
+    first_ptoteins.sort()
+    with open(output_file, mode="w") as text_file:
+        for protein in first_ptoteins:
+            text_file.write(protein + "\n")
