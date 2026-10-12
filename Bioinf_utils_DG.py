@@ -30,3 +30,15 @@ def filter_fastq(
         ) == True:
             filtered_reads.append((read_id, seq, plus_info, qual_read))
     write_fastq(output_fastq, filtered_reads)
+
+
+from helpers.bio_files import convert_fasta, make_output_file
+
+
+def convert_multiline_fasta_to_oneline(
+    input_fasta: str, output_fasta: str | None = None
+) -> None:
+    if output_fasta is None:
+        output_fasta = "oneline_" + input_fasta
+    reads = convert_fasta(input_fasta)
+    make_output_file(output_fasta, reads)
