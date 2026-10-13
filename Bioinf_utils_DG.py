@@ -20,13 +20,13 @@ def filter_fastq(
     Filter FASTQ input file by length, quality and GC content to output file in directory "filtered"
 
     Arguments:
-    input_fastq: str (path to file)
-    output_fastq: str (name of output file)
-    gc_bounds: tuple[float, float] | float = (0, 100)) (lower and upper bounds
-    or upper bound (then lower bound = 0) or by default (0, 100))
-    length_bounds: tuple[int, int] | int = (0, 2**32)) (lower and upper bounds
-    or upper bound (then lower bound = 0) or by default (0, 2**32))
-    quality_threshold: float (threshold quality level, threshold by default = 0)
+    input_fastq: str: path to file
+    output_fastq: str: name of output file
+    gc_bounds: tuple[float, float] | float = (0, 100): lower and upper bounds
+    or upper bound (then lower bound = 0) or by default (0, 100)
+    length_bounds: tuple[int, int] | int = (0, 2**32): lower and upper bounds
+    or upper bound (then lower bound = 0) or by default (0, 2**32)
+    quality_threshold: float = 0: threshold quality level, threshold by default = 0
     """
     reads = read_fastq(input_fastq)
     filtered_reads = []
