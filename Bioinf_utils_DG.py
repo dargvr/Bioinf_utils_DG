@@ -1,3 +1,4 @@
+import os
 from helpers.fastq import read_fastq, check_gc, check_length, check_quality, write_fastq
 
 
@@ -39,7 +40,9 @@ def convert_multiline_fasta_to_oneline(
     input_fasta: str, output_fasta: str | None = None
 ) -> None:
     if output_fasta is None:
-        output_fasta = "oneline_" + input_fasta
+        path_file = os.path.split(input_fasta)
+        file_name = path_file[1]
+        output_fasta = "oneline_" + file_name
     reads = convert_fasta(input_fasta)
     make_output_file(output_fasta, reads)
 
@@ -49,6 +52,8 @@ from helpers.bio_files import separate_blast_table, make_sorted_file
 
 def parse_blast_output(input_file: str, output_file: str | None = None) -> None:
     if output_file is None:
-        output_file = "sorted_proteins_" + input_file
+        path_file = os.path.split(input_file)
+        file_name = path_file[1]
+        output_file = "sorted_proteins_" + file_name
     first_proteins_blast = separate_blast_table(input_file)
     make_sorted_file(output_file, first_proteins_blast)
