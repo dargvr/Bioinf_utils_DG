@@ -30,6 +30,8 @@ def separate_blast_table(input_file: str) -> list[str]:
             if line.startswith("Description"):
                 first_ptotein = blast_file.readline().strip()
                 first_ptotein = first_ptotein.split("  ")[0]
+                if "..." in first_ptotein:
+                    first_ptotein = first_ptotein.split("...")[0]
                 first_ptoteins.append(first_ptotein)
         return first_ptoteins
 
