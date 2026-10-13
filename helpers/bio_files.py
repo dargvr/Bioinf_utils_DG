@@ -70,7 +70,7 @@ def make_sorted_file(output_file: str, first_proteins: list[str]) -> None:
     output_file: str: name of output file
     first_proteins: list[str]: list of proteins
     """
-    first_proteins.sort()
+    first_proteins.sort(key=str.lower)
     with open(output_file, mode="w") as text_file:
         for protein in first_proteins:
             text_file.write(protein + "\n")
