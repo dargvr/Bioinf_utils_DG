@@ -43,6 +43,16 @@ def filter_fastq(
 def convert_multiline_fasta_to_oneline(
     input_fasta: str, output_fasta: str | None = None
 ) -> None:
+    """
+    Read input FASTA file and create FASTA output file
+    with each sequence on one line
+    If name of output file is not given,
+    create name of output file ("oneline_" + input file name)
+
+    Arguments:
+    input_fasta: str: name of file or path to input file
+    output_fasta: str | None: name of output file (optional)
+    """
     if output_fasta is None:
         path_file = os.path.split(input_fasta)
         file_name = path_file[1]
@@ -52,6 +62,17 @@ def convert_multiline_fasta_to_oneline(
 
 
 def parse_blast_output(input_file: str, output_file: str | None = None) -> None:
+    """
+    Read a BLAST output file and select the first protein
+    in the "Description" column for each QUERY
+    and make file with protein names, one per line, in alphabetical order
+    If name of output file is not given,
+    create name of output file ("sorted_proteins_" + input file name)
+
+    Arguments:
+    input_file: str: name of file or path to input file
+    output_file: str | None: name of output file (optional)
+    """
     if output_file is None:
         path_file = os.path.split(input_file)
         file_name = path_file[1]
