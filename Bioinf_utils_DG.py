@@ -1,5 +1,12 @@
 import os
-from helpers.fastq import read_fastq, check_gc, check_length, check_quality, write_fastq
+
+from helpers.bio_files import (
+    convert_fasta,
+    make_output_file,
+    make_sorted_file,
+    separate_blast_table,
+)
+from helpers.fastq import check_gc, check_length, check_quality, read_fastq, write_fastq
 
 
 def filter_fastq(
@@ -33,9 +40,6 @@ def filter_fastq(
     write_fastq(output_fastq, filtered_reads)
 
 
-from helpers.bio_files import convert_fasta, make_output_file
-
-
 def convert_multiline_fasta_to_oneline(
     input_fasta: str, output_fasta: str | None = None
 ) -> None:
@@ -45,9 +49,6 @@ def convert_multiline_fasta_to_oneline(
         output_fasta = "oneline_" + file_name
     reads = convert_fasta(input_fasta)
     make_output_file(output_fasta, reads)
-
-
-from helpers.bio_files import separate_blast_table, make_sorted_file
 
 
 def parse_blast_output(input_file: str, output_file: str | None = None) -> None:
